@@ -1,10 +1,10 @@
 import javax.swing.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 public class Main extends JFrame {
-
-
 
 
     public static void main(String[] args) {
@@ -19,18 +19,91 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(300,100,Finals.General_SCREEN_WIDTH,Finals.General_SCREEN_HEIGHT);
         this.setTitle("Test");
-        this.setVisible(true);
-        PersonalData personalData = new PersonalData(Finals.PERSONAL_DATA_X,Finals.PERSONAL_DATA_Y,Finals.PERSONAL_DATA_WIDTH,Finals.PERSONAL_DATA_HEIGHT);
+        JPanel personalData = createPersonalData();
         this.add(personalData);
-        GenderPanel genderPanel = new GenderPanel(Finals.GENDER_X,Finals.GENDER_Y,Finals.GENDER_WIDTH,Finals.GENDER_HEIGHT);
+        JPanel genderPanel = createGenderPanel();
         this.add(genderPanel);
-        HeightPanel heightPanel = new HeightPanel(Finals.HEIGHT_SLIDE_X,Finals.HEIGHT_SLIDE_Y,Finals.HEIGHT_SLIDE_WIDTH,Finals.HEIGHT_SLIDE_HEIGHT);
+        JPanel heightPanel = createHeightPanel();
         this.add(heightPanel);
-        WeightPanel weightPanel = new WeightPanel(Finals.WEIGTH_X,Finals.WEIGTH_Y,Finals.WEIGTH_WIDTH,Finals.WEIGTH_HEIGHT);
+        JPanel weightPanel = createWeightPanel();
         this.add(weightPanel);
+        this.setVisible(true);
         repaint();
     }
 
+protected static JPanel createPersonalData (){
+    JPanel personalData = new JPanel();
+    personalData.setBounds(Finals.PERSONAL_DATA_X,Finals.PERSONAL_DATA_Y,Finals.PERSONAL_DATA_WIDTH,Finals.PERSONAL_DATA_HEIGHT);
+    personalData.setLayout(new GridLayout(4,2,10,10));
+    personalData.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Personal Data"),BorderFactory.createEmptyBorder(5,5,5,5)));
+    JLabel name = new JLabel("Name");
+    JLabel familyName = new JLabel("Family Name");
+    JLabel age = new JLabel("Age");
+    personalData.add(name);
+    JTextField nameBox = new JTextField();
+    personalData.add(nameBox);
+    personalData.add(familyName);
+    JTextField familyNameBox = new JTextField();
+    personalData.add(familyNameBox);
+    personalData.add(age);
+    JTextField ageBox = new JTextField();
+    personalData.add(ageBox);
+    JButton printButton = new JButton("Print");
+    personalData.add(printButton);
+    printButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("The name is : " + nameBox.getText());
+            System.out.println("The family name is : " + familyNameBox.getText());
+            System.out.println("The age is : " + ageBox.getText());
+            System.out.println("The weight is: " + createWeightPanel().getToolTipText());
 
+        }
+    });
+    return personalData;
+}
 
+protected static JPanel createGenderPanel (){
+        JPanel genderPanel = new JPanel();
+        genderPanel.setBounds(Finals.GENDER_X,Finals.GENDER_Y,Finals.GENDER_WIDTH,Finals.GENDER_HEIGHT);
+        genderPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Gender"),BorderFactory.createEmptyBorder(5,5,5,5)));
+        String[] gender = {"Male","Female"};
+        JComboBox<String> genderBox = new JComboBox<>(gender);
+        genderPanel.add(genderBox);
+        return genderPanel;
+}
+
+protected static JPanel createHeightPanel(){
+        JPanel heightPanel = new JPanel();
+        heightPanel.setBounds(Finals.HEIGHT_SLIDE_X,Finals.HEIGHT_SLIDE_Y,Finals.HEIGHT_SLIDE_WIDTH,Finals.HEIGHT_SLIDE_HEIGHT);
+    heightPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Height"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+    JSlider heightSlider = new JSlider(JSlider.VERTICAL,140,190,160);
+    heightSlider.setMinorTickSpacing(1);
+    heightSlider.setMajorTickSpacing(5);
+    heightSlider.setPaintTicks(true);
+    Hashtable<Integer,JLabel> heights = new Hashtable<>();
+    heights.put(140,new JLabel("140"));
+    heights.put(150,new JLabel("150"));
+    heights.put(160,new JLabel("160"));
+    heights.put(170,new JLabel("170"));
+    heights.put(180,new JLabel("180"));
+    heights.put(190,new JLabel("190"));
+    heightSlider.setLabelTable(heights);
+    JLabel height = new JLabel("160");
+    heightSlider.setPaintLabels(true);
+    heightPanel.add(height);
+    heightPanel.add(heightSlider);
+    return heightPanel;
+}
+
+protected static JPanel createWeightPanel (){
+        JPanel weightPanel = new JPanel();
+        weightPanel.setBounds(Finals.WEIGTH_X,Finals.WEIGTH_Y,Finals.WEIGTH_WIDTH,Finals.WEIGTH_HEIGHT);
+        weightPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Weight"),BorderFactory.createEmptyBorder(5,5,5,5)));
+        weightPanel.setLayout(new GridLayout(0,1));
+        JTextField weightBox = new JTextField();
+        weightBox.setBounds(Finals.WEIGTH_X+10,Finals.WEIGTH_Y+10,Finals.WEIGTH_WIDTH-10,Finals.WEIGTH_HEIGHT+10);
+        weightPanel.add(weightBox);
+        return weightPanel;
+}
 }
