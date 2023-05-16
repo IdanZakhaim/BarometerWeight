@@ -1,6 +1,4 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,16 +6,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Hashtable;
 
+//לא לשכוח לראות הקלטה של אבי מה3.5
 public class Main extends JFrame {
-
-
 
     public static void main(String[] args) {
 
         new Main();
     }
 //לא לשכוח לראות הקלטה של אבי מה3.5
-
 
     public Main() {
         JButton printButton = new JButton("Print");
@@ -41,11 +37,8 @@ public class Main extends JFrame {
         String[] gender = {"Male", "Female"};
         JComboBox<String> genderBox = new JComboBox<>(gender);
         genderPanel.add(genderBox);
-
         JPanel heightPanel = createHeightPanel();
         this.add(heightPanel);
-
-
         JPanel weightPanel = createWeightPanel();
         this.add(weightPanel);
         JTextField weightBox = new JTextField();
@@ -78,10 +71,8 @@ public class Main extends JFrame {
             public void mouseDragged(MouseEvent e) {
                 height.setText(""+ heightSlider.getValue());
             }
-
             @Override
             public void mouseMoved(MouseEvent e) {
-
             }
         });
         heightSlider.setPaintLabels(true);
@@ -96,11 +87,8 @@ public class Main extends JFrame {
                 System.out.println("The gender is : " + genderBox.getSelectedItem());
                 System.out.println("The height is : " + heightSlider.getValue());
                 System.out.println("The weight is : " + weightBox.getText());
-
-
             }
         });
-
         repaint();
     }
 
@@ -133,5 +121,4 @@ public class Main extends JFrame {
         weightPanel.setLayout(new GridLayout(0, 1));
         return weightPanel;
     }
-
 }
