@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Finals {
 
     public static final int General_SCREEN_HEIGHT = 300;
@@ -21,6 +23,8 @@ public class Finals {
     public static final int WEIGTH_Y = 100;
     public static final int WEIGTH_HEIGHT = 60;
     public static final int WEIGTH_WIDTH = 115;
+
+    public static final JButton PRINT_RESULT = new JButton();
 
 
 
